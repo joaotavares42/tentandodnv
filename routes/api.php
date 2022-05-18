@@ -31,7 +31,9 @@ Route::post('agency', [AgencyController::class, 'store']);
 
 //User route
 Route::post('user', [UserController::class, 'store']);
-
+Route::delete('user/logout', [UserController::class, 'logoutApi'])->middleware('auth:api');
+Route::put('user/disable',[UserController::class, 'disable'])->middleware('auth:api');
+Route::put('user/update',[UserController::class, 'update'])->middleware('auth:api');
 
 Route::post('deposit', [AccountController::class, 'deposit']);
 
@@ -45,4 +47,5 @@ Route::post('payments', [PaymentController::class, 'store'])->middleware('auth:a
 Route::get('payments', [PaymentController::class, 'index'])->middleware('auth:api');
 Route::put('payments', [PaymentController::class, 'update'])->middleware('auth:api');
 
-//Route::resource('teste', TesteController::class);
+//Extract
+Route::get('extract', [ExtractController::class, 'index'])->middleware('auth:api');

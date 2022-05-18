@@ -17,12 +17,15 @@ return new class extends Migration
             $table->id();
             $table->string('name',100);
             $table->string('email')->unique();
+            $table->string('telephone')->unique();
             $table->enum('gender', ['F','M']);
             $table->enum('document_type', ['CPF','CNPJ']);
             $table->string('document_number', 18)->unique();
             $table->date('birth_date');
             $table->string('password');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

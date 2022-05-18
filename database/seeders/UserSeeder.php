@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Joao Tavares',
             'email' => 'joao.santos@axxispay.com.br',
+            'telephone' => '19-982204447',
             'gender' => 'M',
             'document_type' => 'CNPJ',
             'document_number' => '53.747.765/0001-56',
@@ -34,11 +35,12 @@ class UserSeeder extends Seeder
             'cep' => '03585-090'
         ]);
         $user->account()->create([
-            'password' => Hash::make('12345678')
+            'password' => Hash::make('123456')
         ]);
         $usera = User::create([
             'name' => 'UserTeste',
             'email' => 'jvdst5@gmail.com',
+            'telephone' => '19-983143758',
             'gender' => 'M',
             'document_type' => 'CPF',
             'document_number' => '000.000.000-25',
@@ -54,7 +56,7 @@ class UserSeeder extends Seeder
             'cep' => '03585-090'
         ]);
         $usera->account()->create([
-            'password' => Hash::make('12345678')
+            'password' => Hash::make('123456')
         ]);
 
     }

@@ -13,7 +13,12 @@ class TransferController extends Controller
     public function store(StoreTransferRequest $request)
     {
         $from_account = Account::where('user_id', auth()->user()->id)->first()->makeVisible('password');
-        if($from_account->account_number == $request['to_account'])
+        $to_account = Account::where('account_number',$request['to_account'])->first();
+        if(!$to_account->active)
+        {
+            return response()->json(['Conta invalida']);
+        }
+        elseif($from_account->account_number == $request['to_account'])
         {
             return response()->json(['Voce nao pode fazer uma transferencia para sua propria conta']);
         }
@@ -29,13 +34,12 @@ class TransferController extends Controller
         {
             $from_account->balance = $from_account->balance - $request['transfer'];
             $from_account->save();
-            $to_account = Account::where('account_number',$request['to_account'])->first();
             $to_account->balance = $to_account->balance + $request['transfer'];
             if($to_account->save())
             {
                 $transfer  = new Transfer();
                 $transfer->from_account_id = $from_account->id;
-                $transfer->to_account_id = $from_account->id;
+                $transfer->to_account_id = $to_account->id;
                 $transfer->amount = $request['transfer'];
                 $transfer->fill($request->all());
                 $transfer->save();
